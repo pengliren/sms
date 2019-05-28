@@ -29,5 +29,5 @@
   
 * Live stream is the same as above
   
-  ### Warning
-  * This project is mainly used for learning. If you have any questions, please send an email to 344867279@qq.com
+### Warning
+* This project is mainly used for learning. If you have any questions, please send an email to 344867279@qq.com
