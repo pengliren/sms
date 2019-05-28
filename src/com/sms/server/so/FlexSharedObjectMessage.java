@@ -1,0 +1,40 @@
+package com.sms.server.so;
+
+import com.sms.server.api.event.IEventListener;
+
+public class FlexSharedObjectMessage extends SharedObjectMessage {
+
+	private static final long serialVersionUID = -6458750398936033347L;
+
+	public FlexSharedObjectMessage() {
+	}
+
+	/**
+	 * Creates Flex Shared Object event with given name, version and persistence flag
+	 *
+	 * @param name          Event name
+	 * @param version       SO version
+	 * @param persistent    SO persistence flag
+	 */
+	public FlexSharedObjectMessage(String name, int version, boolean persistent) {
+		this(null, name, version, persistent);
+	}
+
+	/**
+	 * Creates Flex Shared Object event with given listener, name, SO version and persistence flag
+	 *
+	 * @param source         Event listener
+	 * @param name           Event name
+	 * @param version        SO version
+	 * @param persistent     SO persistence flag
+	 */
+	public FlexSharedObjectMessage(IEventListener source, String name, int version, boolean persistent) {
+		super(source, name, version, persistent);
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public byte getDataType() {
+		return TYPE_FLEX_SHARED_OBJECT;
+	}
+}

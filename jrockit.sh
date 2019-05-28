@@ -1,0 +1,1 @@
+java -server -Xms:1024m -Xmx1024m -Xgcprio:pausetime -XpauseTarget200ms -Xgc:gencon -Xns512m -XXkeepAreaRatio=5 -XXgcTrigger:10 -XXnoSystemGC -Xverbose:memory -jar ./boot.jar start

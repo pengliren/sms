@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{ISO8601} [%p] [%thread] %logger - %msg%n</pattern>
+		</encoder>		
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<File>logs/console.log</File>
+		<Append>true</Append>
+		<encoder>
+			<pattern>%d{ISO8601} [%thread] %-5level %logger{35} - %msg%n</pattern>
+		</encoder>		
+		
+	</appender>
+	<appender name="ERRORFILE" class="ch.qos.logback.core.FileAppender">
+		
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      		<level>WARN</level>
+    	</filter>  
+		<File>logs/error.log</File>
+		<Append>true</Append>
+		<encoder>
+			<pattern>%d{ISO8601} [%thread] %-5level %logger{35} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="ERRORFILE" />
+	</root>
+	<logger name="com.fenfen">
+        <level value="INFO" />
+    </logger>
+    
+</configuration>

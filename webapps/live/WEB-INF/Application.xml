@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+	<!-- 配置Handlers -->
+	<Handler>
+		<RtmpApplicationAdapter>com.sms.server.adapter.ApplicationAdapter</RtmpApplicationAdapter>
+		<HttpApplicationAdapter>com.sms.server.net.http.HTTPApplicationAdapter</HttpApplicationAdapter>
+	</Handler>
+	
+	<Clients>
+		<RtmpSampleAccess audioAllowed="true" videoAllowed="true">com.sms.server.stream.RtmpSampleAccess</RtmpSampleAccess>
+	</Clients>
+	
+	<!-- 配置流的扩展 -->
+	<Streams>
+		<BroadcastStream record="false" path="e:/temp" duration="60">com.sms.server.stream.timeshift.RecordableBroadcastStream</BroadcastStream>
+		<SubscriberStream>com.sms.server.stream.PlaylistSubscriberStream</SubscriberStream>
+		<SingleStream>com.sms.server.stream.SingleItemSubscriberStream</SingleStream>
+		<FileConsumer>com.sms.server.stream.consumer.FileConsumer</FileConsumer>
+	</Streams>
+	
+	<Services>
+		<StreamService>com.sms.server.stream.StreamService</StreamService>
+		<ProviderService>com.sms.mgr.ProviderService</ProviderService>
+		<ConsumerService>com.sms.server.stream.ConsumerService</ConsumerService>
+	</Services>
+	
+	<!-- 资源安全 -->
+	<Security>
+	    <Forbidden>*/WEB-INF/*;</Forbidden>
+	</Security>
+</Root>

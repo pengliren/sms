@@ -1,0 +1,1 @@
+java -server -Xms1024M -Xmx1024M -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:NewSize=512m -jar ./boot.jar start

@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<project name="SMS" basedir="." default="build">
+
+	<property name="name" value="sms" />
+	<property name="version" value="1.0" />
+	<property name="build.dest" value="build" />
+	<property name="dir.lib" value="lib" />
+	<property name="dir.plugins" value="plugins" />
+	<property name="dir.conf" value="conf" />
+	<property name="dir.webapps" value="webapps" />
+
+	<!-- build -->
+	<target name="build" depends="package">
+		<echo message="Build ..." />
+		<mkdir dir="${build.dest}" />
+		<copydir dest="${build.dest}/lib" src="${dir.lib}">
+			<exclude name="**/.svn**" />
+		</copydir>
+		<copydir dest="${build.dest}/conf" src="${dir.conf}">
+			<exclude name="**/.svn**" />
+		</copydir>
+		<copydir dest="${build.dest}/plugins" src="${dir.plugins}">
+			<exclude name="**/.svn**" />
+			<include name="**/*.jar**" />
+		</copydir>
+		<copy todir="${build.dest}/webapps" includeemptydirs="true">
+			<fileset dir="${dir.webapps}">
+				<exclude name="**/.svn**" />
+				<exclude name="**/streams/**" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dest}" file="boot.jar" />
+		<copy todir="${build.dest}" file="startup.bat" />
+		<copy todir="${build.dest}" file="startup.sh" />
+		<copy todir="${build.dest}" file="jrockit.bat" />
+		<copy todir="${build.dest}" file="jrockit.sh" />
+	</target>
+
+	<!-- package -->
+	<target name="package" description="build sms" depends="clean">
+		<echo message="Package..." />
+		<tstamp>
+			<format property="ts" pattern="yyyy-MM-dd HH:mm:ss" />
+		</tstamp>
+		<jar destfile="boot.jar">
+			<fileset dir="bin">
+				<include name="**/com/sms/server/Bootstrap**" />
+				<include name="**/com/sms/classloading/**" />
+			</fileset>
+			<manifest>
+				<attribute name="Main-Class" value="com.sms.server.Bootstrap" />
+				<attribute name="Implementation-Title" value="${name}" />
+				<attribute name="Implementation-Version" value="${version}" />
+				<attribute name="Build-Id" value="${ts} (${user.name} [${os.name} ${os.version} ${os.arch}])" />
+			</manifest>
+		</jar>
+
+		<jar destfile="${dir.lib}/sms.jar">
+			<fileset dir="bin">
+				<include name="**/com/sms/**" />
+				<exclude name="**/com/sms/server/Bootstrap**" />
+				<exclude name="**/com/sms/classloading/**" />
+				<exclude name="**/com/sms/jni/LicenseKenGen**"/>
+				<exclude name="**/com/sms/mgr/**" />
+			</fileset>
+			<manifest>
+				<attribute name="Implementation-Title" value="${name}" />
+				<attribute name="Implementation-Version" value="${version}" />
+				<attribute name="Build-Id" value="${ts} (${user.name} [${os.name} ${os.version} ${os.arch}])" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- cleanup -->
+	<target name="clean">
+		<echo message="Cleanup..." />
+		<delete dir="${build.dest}" />
+		<delete file="boot.jar" />
+		<delete file="${dir.lib}/sms.jar" />
+		<delete verbose="true">
+			<fileset dir="${dir.plugins}" includes="**/*.jar" />
+		</delete>
+	</target>
+</project>
